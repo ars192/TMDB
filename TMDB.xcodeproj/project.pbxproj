@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB5FE63525D1B2E50083AC44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE63425D1B2E50083AC44 /* AppDelegate.swift */; };
-		FB5FE63725D1B2E50083AC44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE63625D1B2E50083AC44 /* SceneDelegate.swift */; };
 		FB5FE63925D1B2E50083AC44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE63825D1B2E50083AC44 /* ViewController.swift */; };
-		FB5FE63C25D1B2E50083AC44 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB5FE63A25D1B2E50083AC44 /* Main.storyboard */; };
 		FB5FE63E25D1B2E80083AC44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB5FE63D25D1B2E80083AC44 /* Assets.xcassets */; };
 		FB5FE64125D1B2E80083AC44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB5FE63F25D1B2E80083AC44 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -18,9 +16,7 @@
 /* Begin PBXFileReference section */
 		FB5FE63125D1B2E50083AC44 /* TMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB5FE63425D1B2E50083AC44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FB5FE63625D1B2E50083AC44 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FB5FE63825D1B2E50083AC44 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FB5FE63B25D1B2E50083AC44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FB5FE63D25D1B2E80083AC44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB5FE64025D1B2E80083AC44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB5FE64225D1B2E80083AC44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,9 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				FB5FE63425D1B2E50083AC44 /* AppDelegate.swift */,
-				FB5FE63625D1B2E50083AC44 /* SceneDelegate.swift */,
 				FB5FE63825D1B2E50083AC44 /* ViewController.swift */,
-				FB5FE63A25D1B2E50083AC44 /* Main.storyboard */,
 				FB5FE63D25D1B2E80083AC44 /* Assets.xcassets */,
 				FB5FE63F25D1B2E80083AC44 /* LaunchScreen.storyboard */,
 				FB5FE64225D1B2E80083AC44 /* Info.plist */,
@@ -126,7 +120,6 @@
 			files = (
 				FB5FE64125D1B2E80083AC44 /* LaunchScreen.storyboard in Resources */,
 				FB5FE63E25D1B2E80083AC44 /* Assets.xcassets in Resources */,
-				FB5FE63C25D1B2E50083AC44 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,21 +132,12 @@
 			files = (
 				FB5FE63925D1B2E50083AC44 /* ViewController.swift in Sources */,
 				FB5FE63525D1B2E50083AC44 /* AppDelegate.swift in Sources */,
-				FB5FE63725D1B2E50083AC44 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FB5FE63A25D1B2E50083AC44 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FB5FE63B25D1B2E50083AC44 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FB5FE63F25D1B2E80083AC44 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -295,7 +279,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ars192.TMDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -313,7 +297,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ars192.TMDB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
