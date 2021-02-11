@@ -46,8 +46,8 @@ class ImageViewCell: UITableViewCell {
         }
     }
     
-    fileprivate var imageViewF: CustomImageView = {
-        let imageView = CustomImageView()
+    fileprivate var mainPosterImageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -65,7 +65,11 @@ class ImageViewCell: UITableViewCell {
     
     var imageString: String? {
         didSet {
-            if let imageString = imageString {imageViewF.loadImageFromUrl(urlString: imageString)}
+            guard let imageString = imageString,
+                  let url = URL(string: imageString) else {
+                return
+            }
+            mainPosterImageView.setImage(with: url)
         }
     }
     
@@ -99,7 +103,7 @@ extension ImageViewCell {
     fileprivate func configUI() {
         backgroundColor = .clear
         setupGradientLayer()
-        [imageViewF, containerForLabel, stackView].forEach {
+        [mainPosterImageView, containerForLabel, stackView].forEach {
             addSubview($0)
         }
         
@@ -111,7 +115,7 @@ extension ImageViewCell {
     }
     
     fileprivate func makeConstraints() {
-        imageViewF.snp.makeConstraints { (m) in
+        mainPosterImageView.snp.makeConstraints { (m) in
             m.edges.equalToSuperview()
         }
         
@@ -153,8 +157,8 @@ extension ImageViewCell {
         gradientContainerView.layer.addSublayer(gradientLayer)
         gradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 200))
 
-        imageViewF.addSubview(gradientContainerView)
-        imageViewF.bringSubviewToFront(gradientContainerView)
+        mainPosterImageView.addSubview(gradientContainerView)
+        mainPosterImageView.bringSubviewToFront(gradientContainerView)
         
         let gradientLayer2 = CAGradientLayer()
         gradientLayer2.colors = [UIColor.backgroundColor.cgColor, UIColor.clear.cgColor]
@@ -162,8 +166,8 @@ extension ImageViewCell {
         topGradientContainerView.layer.addSublayer(gradientLayer2)
         gradientLayer2.frame = CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 150))
         
-        imageViewF.addSubview(topGradientContainerView)
-        imageViewF.bringSubviewToFront(topGradientContainerView)
+        mainPosterImageView.addSubview(topGradientContainerView)
+        mainPosterImageView.bringSubviewToFront(topGradientContainerView)
     }
     
     fileprivate func setupGenreLabels(_ genres: [Genre]?) {

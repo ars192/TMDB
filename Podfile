@@ -6,6 +6,6 @@ target 'TMDB' do
   use_frameworks!
 
   # Pods for TMDB
-  pod 'Alamofire'
   pod 'SnapKit'
+  pod 'Kingfisher'
 end

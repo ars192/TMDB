@@ -127,7 +127,7 @@ extension RateDetailCell {
                     if i == 0 {
                         nameLabel.textColor = UIColor.kinokz
                         nameLabel.text = "Kino.kz"
-                    }else {
+                    } else {
                         nameLabel.textColor = UIColor.kinoPoisk
                         nameLabel.text = "КиноПоиск"
                     }

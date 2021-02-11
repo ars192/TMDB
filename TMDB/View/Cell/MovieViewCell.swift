@@ -36,8 +36,8 @@ class MovieViewCell: UICollectionViewCell {
         return view
     }()
     
-    fileprivate var imageView: CustomImageView = {
-        let imageView = CustomImageView()
+    fileprivate var imageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = false
         imageView.layer.cornerRadius = 10
@@ -47,7 +47,11 @@ class MovieViewCell: UICollectionViewCell {
     
     fileprivate var imageString: String? {
         didSet {
-            if let imageString = imageString {imageView.loadImageFromUrl(urlString: imageString)}
+            guard let imageString = imageString,
+                  let url = URL(string: imageString) else {
+                return
+            }
+            imageView.setImage(with: url)
         }
     }
     

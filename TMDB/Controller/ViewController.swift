@@ -5,12 +5,8 @@
 //  Created by Arystan on 2/8/21.
 //
 
-import Foundation
 import UIKit
 import SnapKit
-//import RxSwift
-//import SVProgressHUD
-//import DZNEmptyDataSet
 
 enum FilterType {
     case favourites, popular
@@ -18,12 +14,9 @@ enum FilterType {
 
 class ViewController: UIViewController {
     fileprivate let viewModel = MainViewModel()
-    fileprivate let movieReusableCell = "movieReusableCell"
     fileprivate var filterType: FilterType = .popular
-    
-    var itemSize: CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width / 1.5)
-    }
+    fileprivate let movieReusableCell = "movieReusableCell"
+    fileprivate lazy var rootView = MovieListView(delegate: self)
     
     fileprivate lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -36,40 +29,19 @@ class ViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
-    
-    fileprivate lazy var collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(width: self.itemSize.width - 30, height: self.itemSize.height)
-        flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 20
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.alwaysBounceVertical = true
-        collectionView.register(MovieViewCell.self, forCellWithReuseIdentifier: movieReusableCell)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.backgroundColor = UIColor.backgroundColor
-        collectionView.refreshControl = refreshControl
-//        collectionView.emptyDataSetSource = self
-//        collectionView.emptyDataSetDelegate = self
-        collectionView.refreshControl = self.refreshControl
-        return collectionView
-    }()
-    
-    private var refreshControl: UIRefreshControl = {
-        let view = UIRefreshControl()
-        view.addTarget(self, action: #selector(updateList), for: .valueChanged)
-        return view
-    }()
 
     private var movies: Movies = Movies()
+    
+    override func loadView() {
+        view = rootView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         makeRequest()
-//        getMovieList(page: 1)
-//        makeRequest()
         configUI()
     }
-//    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -93,17 +65,14 @@ extension ViewController {
     fileprivate func getMovieList(page: Int) {
         viewModel.getList(page: page) { [weak self] in
             guard let self = self else { return }
-            self.collectionView.refreshControl?.endRefreshing()
-            self.collectionView.reloadData()
+            self.rootView.endRefreshing()
+            self.rootView.reloadData()
         } failure: { _ in
             //TODO: - Расписать Service Error
         }
 
     }
     
-    fileprivate func getFavourites() {
-
-    }
 
     fileprivate func getMovieDetails(movie_id: Int) {
         viewModel.getMovieDetails(movie_id: movie_id, success: { [weak self] movie_details in
@@ -123,7 +92,7 @@ extension ViewController {
     fileprivate func searchByText(text: String, page: Int) {
         viewModel.searchByText(text, page: page, success: { [weak self] in
             guard let wSelf = self else { return }
-            wSelf.collectionView.reloadData()
+            wSelf.rootView.reloadData()
         }) {[weak self] (error) in
             guard let wSelf = self else { return }
             wSelf.checkError(error: error)
@@ -140,11 +109,6 @@ extension ViewController {
         }
         navigationController?.pushViewController(vc, animated: true)
 //        navigationController?.present(vc, animated: true, completion: nil)
-    }
-
-    @objc
-    private func updateList() {
-        getMovieList(page: 1)
     }
 }
 //MARK: - Methods
@@ -172,8 +136,6 @@ extension ViewController: UISearchBarDelegate {
         searchController.dismiss(animated: false, completion: nil)
         if let text = searchBar.text {
             viewModel.searching = false
-//            viewModel.movieList = [Movie]()
-//            viewModel.movie = Movies()
             searchByText(text: text, page: 1)
         }
     }
@@ -184,7 +146,6 @@ extension ViewController: UISearchBarDelegate {
             getMovieList(page: 1)
         }else if selectedScope == 1 {
             searchController.dismiss(animated: false, completion: nil)
-            getFavourites()
         }
     }
 
@@ -237,28 +198,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
-////MARK: - ConfigUI
+extension ViewController: MovieListViewDelegate {
+    func updateList() {
+        getMovieList(page: 1)
+    }
+}
+
 extension ViewController {
-    fileprivate func configUI() {
+    private func configUI() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-//        searchController.searchBar.rx.text.asObservable()
-//            .map { $0 ?? "" }
-//            .bind(to: collectionView.)
-        
-        view.backgroundColor = UIColor.backgroundColor
-        [collectionView].forEach {
-            view.addSubview($0)
-        }
-        
-        makeConstraints()
-    }
-    
-    fileprivate func makeConstraints() {
-        collectionView.snp.makeConstraints { (m) in
-            m.edges.equalTo(view.safeAreaLayoutGuide)
-        }
     }
 }
 
